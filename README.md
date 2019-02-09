@@ -16,7 +16,7 @@ desc: A Spot Information Manager for Data Structure class.
 
 - use MFC as the visible design (Only for Windows)
 - use Visual Studio as the main design IDE
-
+- use MFCProject1 for test visible design
 
 
 ## Data Structure
