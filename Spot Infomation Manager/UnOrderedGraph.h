@@ -33,7 +33,9 @@ public:
 	std::vector<int> ways;
 
 	void cal(int e);
+	void cal2();
 	void dfsNow(int u, int e, int pre = -1);
+	void dfsNow2(int u, int hasgone = 1, int pre = -1);
 	// N is ths node's number, m is the edge's number
 	int N, M;
 	UnOrderedGraph(int n, int m, std::vector<std::pair<int, int> > edges[MAXN], MessageNode node[MAXN]);
@@ -41,6 +43,7 @@ public:
 	// first is the place info and second is the path's length
 	std::vector<std::pair<MessageNode, int> > neighbor(int u);
 	std::vector<std::vector<int> > dfs(int s, int e);
+	std::vector<std::vector<int> > dfs2(int s);
 	// first is the path, second is the min distance
 	std::pair<std::vector<int>, int> distance(int s, int e);
 	// first is the path, second is the min distance

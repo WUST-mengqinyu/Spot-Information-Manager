@@ -31,6 +31,8 @@ void QueryDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DFS_RES, dfs_res);
 	DDX_Control(pDX, IDC_DFS_START, dfs_start);
 	DDX_Control(pDX, IDC_DFS_END, dfs_end);
+	DDX_Control(pDX, IDC_DFS_START2, dfs_start2_text);
+	DDX_Control(pDX, IDC_DFS_RES2, dfs_res2_text);
 }
 
 
@@ -39,6 +41,7 @@ BEGIN_MESSAGE_MAP(QueryDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_DIJ, &QueryDlg::OnBnClickedButtonDij)
 	ON_BN_CLICKED(IDC_BUTTON_MST, &QueryDlg::OnBnClickedButtonMst)
 	ON_BN_CLICKED(IDC_BUTTON3, &QueryDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, &QueryDlg::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -140,4 +143,27 @@ void QueryDlg::OnBnClickedButton3()
 		res += tmp + TEXT("\r\n");
 	}
 	dfs_res.SetWindowTextA(res);
+}
+
+
+void QueryDlg::OnBnClickedButton4()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CString ss;
+	dfs_start2_text.GetWindowTextA(ss);
+	int s;
+	s = graphnow.getIdx(MessageNode(-1, ss, ""));
+	if (s == -1) MessageBox(TEXT("无效或非法输入"));
+	std::vector<std::vector<int> > rest = graphnow.dfs2(s);
+	CString res, tmp;
+	res.Format("共 %3d 种方案\r\n", rest.size());
+	for (auto t : rest) {
+		tmp.Empty();
+		for (int i = 0; i < t.size(); ++i) {
+			if (i != 0) tmp += TEXT("->");
+			tmp += graphnow.Node[t[i]].name;
+		}
+		res += tmp + TEXT("\r\n");
+	}
+	dfs_res2_text.SetWindowTextA(res);
 }

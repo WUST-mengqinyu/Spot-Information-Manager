@@ -44,6 +44,10 @@ void UnOrderedGraph::cal(int e) {
 	res.push_back(ways);
 }
 
+void UnOrderedGraph::cal2() {
+	res.push_back(ways);
+}
+
 void UnOrderedGraph::dfsNow(int u, int e, int pre) {
 	if (u == e) {
 		cal(e);
@@ -60,6 +64,22 @@ void UnOrderedGraph::dfsNow(int u, int e, int pre) {
 	}
 }
 
+void UnOrderedGraph::dfsNow2(int u, int hasgone, int pre) {
+	if (hasgone == N) {
+		cal2();
+		return;
+	}
+	for (auto Next : Edges[u]) {
+		int v = Next.first;
+		if (v == pre || vis[v] || Node[v].idx == -1) continue;
+		ways.push_back(v);
+		vis[v] = true;
+		dfsNow2(v, hasgone + 1, u);
+		ways.pop_back();
+		vis[v] = false;
+	}
+}
+
 std::vector<std::vector<int> > UnOrderedGraph::dfs(int s, int e) {
 	for (int i = 0; i < N; ++i) vis[i] = 0;
 	res.clear();
@@ -67,6 +87,23 @@ std::vector<std::vector<int> > UnOrderedGraph::dfs(int s, int e) {
 	vis[s] = true;
 	ways.push_back(s);
 	dfsNow(s, e);
+	return res;
+}
+
+std::vector<std::vector<int>> UnOrderedGraph::dfs2(int s)
+{
+	int n = 0;
+	for (int i = 0; i < N; ++i) {
+		vis[i] = 0;
+		if (Node[i].idx != -1) n++;
+	}
+	// refresh node's number
+	N = n;
+	res.clear();
+	ways.clear();
+	vis[s] = true;
+	ways.push_back(s);
+	dfsNow2(s);
 	return res;
 }
 

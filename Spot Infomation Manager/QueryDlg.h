@@ -35,4 +35,7 @@ public:
 	CEdit dfs_start;
 	CEdit dfs_end;
 	afx_msg void OnBnClickedButton3();
+	CEdit dfs_start2_text;
+	CEdit dfs_res2_text;
+	afx_msg void OnBnClickedButton4();
 };
